@@ -81,40 +81,101 @@
             grid-template-columns: 1fr 2fr;
             gap: 30px;
             margin-bottom: 40px;
-            padding: 20px;
+            padding: 30px;
             background: var(--secondary);
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .profile-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .profile img {
-    width: min(230px, 100%);
-    height: min(230px, 100vw);
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    margin: 0 auto;
-    display: block;
-    transition: transform 0.3s ease;
-}
+            width: min(230px, 100%);
+            height: min(230px, 100vw);
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: fadeIn 1s ease-in;
+        }
 
-/* Media Queries for Profile Image */
-@media (max-width: 768px) {
-    .profile img {
-        width: 180px;
-        height: 180px;
-        position: static;
-        margin-bottom: 20px;
-    }
-}
+        .profile img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+            border-color: var(--accent);
+        }
 
-@media (max-width: 480px) {
-    .profile img {
-        width: 150px;
-        height: 150px;
-    }
-}
+        .profile-content h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .profile-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .profile-content:hover h2::after {
+            width: 100%;
+        }
+
+        .profile-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Media Queries for Profile */
+        @media (max-width: 768px) {
+            .profile {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .profile-image-container {
+                margin-bottom: 20px;
+            }
+            
+            .profile img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile {
+                padding: 15px;
+            }
+            
+            .profile img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .profile-content h2 {
+                font-size: 1.4rem;
+            }
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -132,26 +193,128 @@
             color: white;
         }
 
+        /* Section Title Styling */
+        .section-title {
+            text-align: center;
+            color: var(--accent);
+            margin: 20px 0;
+            position: relative;
+            font-weight: 600;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
         /* Galeri */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-bottom: 40px;
             padding: 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .gallery img {
             width: 100%;
             height: 300px;
             object-fit: cover;
-            border-radius: 10px;
             transition: transform 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: block;
+            cursor: pointer;
         }
 
         .gallery img:hover {
             transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 5px;
+        }
+
+        #modalCaption {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: white;
+            font-weight: 500;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Responsif */
+        @media (max-width: 992px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .profile {
+                grid-template-columns: 1fr;
+            }
+            
+            iframe {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .gallery img {
+                height: 200px;
+            }
         }
 
         /* Formulir */
@@ -191,24 +354,12 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             margin-top: 40px;
             color: var(--dark);
-        }
-
-        /* Responsif */
-        @media (max-width: 768px) {
-            .profile {
-                grid-template-columns: 1fr;
-            }
-            
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            iframe {
-                height: 200px;
-            }
+            background-color: var(--secondary);
+            border-radius: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
 
         /* Animasi */
@@ -239,6 +390,34 @@
 .notification {
   animation: float 3s ease-in-out infinite;
 }
+
+/* Social Media Icons */
+.social-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon {
+    color: var(--accent);
+    font-size: 24px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(108, 92, 231, 0.1);
+}
+
+.social-icon:hover {
+    color: white;
+    background-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+}
     </style>
 </head>
 <body>
@@ -257,13 +436,15 @@
             </iframe>
         </div>
     </header>
-
+    <h2 class="section-title">Profile</h2>
     <section class="profile">
-        <img src="IMG-20221222-WA0021.jpg" 
-        alt="Foto Profil Web Developer"
-        onerror="this.src='https://via.placeholder.com/200'">
-        <div>
-            <h2>Tentang Landing page ini</h2>
+        <div class="profile-image-container">
+            <img src="IMG-20221222-WA0021.jpg" 
+            alt="Foto Profil Web Developer"
+            onerror="this.src='https://via.placeholder.com/200'">
+        </div>
+        <div class="profile-content">
+            <h2>Tentang Saya</h2>
             <p>Hallo semuanya!<br>  Perkenalkan, nama saya <b>Rahman</b>. Selamat datang di landing page saya yang saya buat dengan bantuan AI, namun tetap dengan ide dan kreativitas saya sendiri.</p>
             
             <table>
@@ -293,20 +474,43 @@
                 </tbody>
             </table>
         </div>
+        
     </section>
+    <h2 class="section-title">Galery</h2>
     <section class="gallery">
         <!-- Galeri dengan gambar spesifik dari Unsplash -->
-        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=400&h=300" alt="Web Development">
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&h=300" alt="Coding">
-        <img src="https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?auto=format&fit=crop&w=400&h=300" alt="UI/UX Design">
-        <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=400&h=300" alt="JavaScript">
-        <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=400&h=300" alt="Responsive Design">
-        <img src="https://images.unsplash.com/photo-1505685817910-3b0a5f3a7a2d?auto=format&fit=crop&w=400&h=300" alt="Web Development">
-        <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=400&h=300" alt="JavaScript">
-        <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=400&h=300" alt="Responsive Design">
-        
-
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=400&h=300" alt="Web Development" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&h=300" alt="Coding" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?auto=format&fit=crop&w=400&h=300" alt="UI/UX Design" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=400&h=300" alt="JavaScript" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=400&h=300" alt="Responsive Design" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1505685817910-3b0a5f3a7a2d?auto=format&fit=crop&w=400&h=300" alt="Web Development" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=400&h=300" alt="JavaScript" onclick="openModal(this.src, this.alt)">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=400&h=300" alt="Responsive Design" onclick="openModal(this.src, this.alt)">
+        </div>
     </section>
+
+    <!-- Modal untuk gambar -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption"></div>
+    </div>
 
     <section>
         <form>
@@ -319,8 +523,13 @@
 
     <footer>
         <p>&copy; 2025 Rahman</p>
-        <div>
-            <a href="#">GitHub</a> | <a href="#">LinkedIn</a>
+        <div class="social-links">
+            <a href="https://wa.me/+6283848160290" target="_blank" class="social-icon">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.instagram.com/surgawebsite/" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
     </footer>
 
@@ -330,69 +539,91 @@
             body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
         }
 
+        // Fungsi untuk modal gambar
+        function openModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            
+            modal.style.display = "block";
+            modalImg.src = src;
+            captionText.innerHTML = alt;
+            
+            // Mencegah scrolling body saat modal terbuka
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+            
+            // Mengaktifkan kembali scrolling pada body
+            document.body.style.overflow = 'auto';
+        }
+
+        // Tutup modal juga ketika mengklik di luar gambar
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
 
         // notifikasi
-        <!-- Tambahkan di bagian bawah body -->
-  const form = document.querySelector('form');
-  const notification = document.createElement('div');
-  
-  // Style untuk notifikasi
-  notification.style.position = 'fixed';
-  notification.style.top = '20px';
-  notification.style.left = '50%';
-  notification.style.transform = 'translateX(-50%)';
-  notification.style.background = '#4CAF50';
-  notification.style.color = 'white';
-  notification.style.padding = '15px 25px';
-  notification.style.borderRadius = '5px';
-  notification.style.display = 'none';
-  notification.style.transition = 'all 0.3s ease';
-  notification.style.zIndex = '1000';
-  notification.textContent = 'Pesan berhasil terkirim!';
-  
-  document.body.appendChild(notification);
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Cek validasi HTML5
-    if (!this.checkValidity()) {
-      return;
-    }
-
-    // Tampilkan loading state
-    const submitBtn = this.querySelector('button');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Mengirim...';
-    
-    // Simulasi proses pengiriman
-    setTimeout(() => {
-      // Tampilkan notifikasi
-      notification.style.display = 'block';
-      notification.style.opacity = '1';
-      notification.style.transform = 'translateX(-50%) translateY(0)';
-      
-      // Reset form
-      this.reset();
-      
-      // Kembalikan tombol ke state awal
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Kirim';
+        const form = document.querySelector('form');
+        const notification = document.createElement('div');
         
-        // Hilangkan notifikasi
-        setTimeout(() => {
-          notification.style.opacity = '0';
-          notification.style.transform = 'translateX(-50%) translateY(-20px)';
-        }, 1000);
-      }, 2000);
-    }, 1500);
-  });
-</script>
-
+        // Style untuk notifikasi
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.background = '#4CAF50';
+        notification.style.color = 'white';
+        notification.style.padding = '15px 25px';
+        notification.style.borderRadius = '5px';
+        notification.style.display = 'none';
+        notification.style.transition = 'all 0.3s ease';
+        notification.style.zIndex = '1000';
+        notification.textContent = 'Pesan berhasil terkirim!';
         
+        document.body.appendChild(notification);
 
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
+            // Cek validasi HTML5
+            if (!this.checkValidity()) {
+                return;
+            }
+
+            // Tampilkan loading state
+            const submitBtn = this.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Mengirim...';
+            
+            // Simulasi proses pengiriman
+            setTimeout(() => {
+                // Tampilkan notifikasi
+                notification.style.display = 'block';
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(-50%) translateY(0)';
+                
+                // Reset form
+                this.reset();
+                
+                // Kembalikan tombol ke state awal
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Kirim';
+                    
+                    // Hilangkan notifikasi
+                    setTimeout(() => {
+                        notification.style.opacity = '0';
+                        notification.style.transform = 'translateX(-50%) translateY(-20px)';
+                    }, 1000);
+                }, 2000);
+            }, 1500);
+        });
     </script>
 </body>
 </html>
